@@ -812,7 +812,7 @@ if (typeof jQuery === 'undefined') {
     _fitToBottom: function() {
       var windowScrollBottom = $window.scrollTop() + $window.height();
       var height = this.$el.height();
-      if ((this.$el.position().top + height) > windowScrollBottom) {
+      if ((this.$el.position().top + height) > windowScrollBottom && this.$el.css('position') != 'fixed') {
         // only do this if we are not in an iframe
         if (!this.completer.$iframe) {
           this.$el.offset({top: windowScrollBottom - height});
