@@ -826,6 +826,7 @@ if (typeof jQuery === 'undefined') {
       var width = this.$el.width();
       var maxLeft = $window.width() - tolerance;
       while (lastOffset + width > maxLeft) {
+        if (lastOffset - tolerance < 0) { this.$el.offset({left: 0}); return; }
         this.$el.offset({left: lastOffset - tolerance});
         offset = this.$el.offset().left;
         if (offset >= lastOffset) { break; }
