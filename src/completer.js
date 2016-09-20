@@ -68,7 +68,7 @@
     this.id         = 'textcomplete' + uniqueId++;
     this.strategies = [];
     this.views      = [];
-    this.option     = $.extend({}, Completer._getDefaults(), option);
+    this.option     = $.extend({}, Completer.defaults, option);
 
     if (!this.$el.is('input[type=text]') && !this.$el.is('input[type=search]') && !this.$el.is('textarea') && !element.isContentEditable && element.contentEditable != 'true') {
       throw new Error('textcomplete must be called on a Textarea or a ContentEditable.');
@@ -91,6 +91,7 @@
             self.$el = $(event.editor.editable().$);
             if (!self.option.adapter) {
               self.option.adapter = $.fn.textcomplete['CKEditor'];
+              self.option.ckeditor_instance = event.editor;
             }
             self.initialize();
           });
@@ -99,19 +100,14 @@
     }
   }
 
-  Completer._getDefaults = function () {
-    if (!Completer.DEFAULTS) {
-      Completer.DEFAULTS = {
-        appendTo: $('body'),
-        className: '',  // deprecated option
-        dropdownClassName: 'dropdown-menu textcomplete-dropdown',
-        maxCount: 10,
-        zIndex: '100'
-      };
-    }
-
-    return Completer.DEFAULTS;
-  }
+  Completer.defaults = {
+    appendTo: 'body',
+    className: '',  // deprecated option
+    dropdownClassName: 'dropdown-menu textcomplete-dropdown',
+    maxCount: 10,
+    zIndex: '100',
+    rightEdgeOffset: 30
+  };
 
   $.extend(Completer.prototype, {
     // Public properties
